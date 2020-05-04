@@ -9,7 +9,7 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="com.mmall" annotation-config="true"/>
+    <context:component-scan base-package="com.gcy" annotation-config="true"/>
 
     <!-- PropertyPlaceholderConfigurer能够使Bean在配置时引用外部属性文件。分离常量 -->
     <!-- Placeholder：占位符 -->
@@ -73,7 +73,7 @@
         <!-- 分页插件 -->
         <property name="plugins">
             <array>
-                <bean class="com.github.pagehelper.PageHelper">
+                <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
                         <value>
                             dialect=mysql
@@ -88,7 +88,7 @@
     <!-- MapperScannerConfigurer，可以将映射接口直接转换为Spring容器中的Bean，
         这样就可以在Service中注入映射接口的Bean了 -->
     <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.mmall.dao"/>
+        <property name="basePackage" value="com.gcy.dao"/>
     </bean>
 
     <!-- 使用@Transactional进行声明式事务管理需要声明下面这行 -->

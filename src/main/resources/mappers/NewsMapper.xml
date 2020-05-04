@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcy.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.gcy.pojo.News">
+    <constructor>
+      <arg column="news_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="new_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="news_body" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="news_level" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="news_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.gcy.pojo.News">
+    insert into news (news_id, new_title, news_body,
+      news_level, news_type)
+    values (#{newsId,jdbcType=INTEGER}, #{newTitle,jdbcType=VARCHAR}, #{newsBody,jdbcType=VARCHAR},
+      #{newsLevel,jdbcType=INTEGER}, #{newsType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gcy.pojo.News">
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsId != null">
+        news_id,
+      </if>
+      <if test="newTitle != null">
+        new_title,
+      </if>
+      <if test="newsBody != null">
+        news_body,
+      </if>
+      <if test="newsLevel != null">
+        news_level,
+      </if>
+      <if test="newsType != null">
+        news_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsId != null">
+        #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="newTitle != null">
+        #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsBody != null">
+        #{newsBody,jdbcType=VARCHAR},
+      </if>
+      <if test="newsLevel != null">
+        #{newsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="newsType != null">
+        #{newsType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

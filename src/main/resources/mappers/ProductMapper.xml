@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcy.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.gcy.pojo.Product">
+    <constructor>
+      <idArg column="item_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="item_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="item_des" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item_image" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item_images" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item_detail" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item_stock" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="item_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    item_id, item_name, item_price, item_des, item_image, item_images, item_detail, item_stock, 
+    item_status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gcy.pojo.Product">
+    insert into product (item_id, item_name, item_price, 
+      item_des, item_image, item_images, 
+      item_detail, item_stock, item_status, 
+      create_time, update_time)
+    values (#{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{itemPrice,jdbcType=DECIMAL}, 
+      #{itemDes,jdbcType=VARCHAR}, #{itemImage,jdbcType=VARCHAR}, #{itemImages,jdbcType=VARCHAR}, 
+      #{itemDetail,jdbcType=VARCHAR}, #{itemStock,jdbcType=INTEGER}, #{itemStatus,jdbcType=INTEGER}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.gcy.pojo.Product">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="itemPrice != null">
+        item_price,
+      </if>
+      <if test="itemDes != null">
+        item_des,
+      </if>
+      <if test="itemImage != null">
+        item_image,
+      </if>
+      <if test="itemImages != null">
+        item_images,
+      </if>
+      <if test="itemDetail != null">
+        item_detail,
+      </if>
+      <if test="itemStock != null">
+        item_stock,
+      </if>
+      <if test="itemStatus != null">
+        item_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemDes != null">
+        #{itemDes,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImage != null">
+        #{itemImage,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImages != null">
+        #{itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDetail != null">
+        #{itemDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStock != null">
+        #{itemStock,jdbcType=INTEGER},
+      </if>
+      <if test="itemStatus != null">
+        #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gcy.pojo.Product">
+    update product
+    <set>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        item_price = #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemDes != null">
+        item_des = #{itemDes,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImage != null">
+        item_image = #{itemImage,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImages != null">
+        item_images = #{itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDetail != null">
+        item_detail = #{itemDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStock != null">
+        item_stock = #{itemStock,jdbcType=INTEGER},
+      </if>
+      <if test="itemStatus != null">
+        item_status = #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gcy.pojo.Product">
+    update product
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      item_price = #{itemPrice,jdbcType=DECIMAL},
+      item_des = #{itemDes,jdbcType=VARCHAR},
+      item_image = #{itemImage,jdbcType=VARCHAR},
+      item_images = #{itemImages,jdbcType=VARCHAR},
+      item_detail = #{itemDetail,jdbcType=VARCHAR},
+      item_stock = #{itemStock,jdbcType=INTEGER},
+      item_status = #{itemStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>

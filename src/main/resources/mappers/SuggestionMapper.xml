@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcy.dao.SuggestionMapper">
+  <resultMap id="BaseResultMap" type="com.gcy.pojo.Suggestion">
+    <constructor>
+      <idArg column="suggestion_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="suggestion_body" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="suggestion_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    suggestion_id, user_id, suggestion_body, create_time, staff_id, suggestion_status, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from suggestion
+    where suggestion_id = #{suggestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from suggestion
+    where suggestion_id = #{suggestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gcy.pojo.Suggestion">
+    insert into suggestion (suggestion_id, user_id, suggestion_body, 
+      create_time, staff_id, suggestion_status, 
+      update_time)
+    values (#{suggestionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{suggestionBody,jdbcType=VARCHAR}, 
+      now(), #{staffId,jdbcType=INTEGER}, #{suggestionStatus,jdbcType=INTEGER},
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.gcy.pojo.Suggestion">
+    insert into suggestion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suggestionId != null">
+        suggestion_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="suggestionBody != null">
+        suggestion_body,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="suggestionStatus != null">
+        suggestion_status,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suggestionId != null">
+        #{suggestionId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestionBody != null">
+        #{suggestionBody,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestionStatus != null">
+        #{suggestionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gcy.pojo.Suggestion">
+    update suggestion
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestionBody != null">
+        suggestion_body = #{suggestionBody,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestionStatus != null">
+        suggestion_status = #{suggestionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where suggestion_id = #{suggestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gcy.pojo.Suggestion">
+    update suggestion
+    set user_id = #{userId,jdbcType=INTEGER},
+      suggestion_body = #{suggestionBody,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      staff_id = #{staffId,jdbcType=INTEGER},
+      suggestion_status = #{suggestionStatus,jdbcType=INTEGER},
+      update_time = now()
+    where suggestion_id = #{suggestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

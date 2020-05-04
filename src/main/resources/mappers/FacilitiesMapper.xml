@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcy.dao.FacilitiesMapper">
+  <resultMap id="BaseResultMap" type="com.gcy.pojo.Facilities">
+    <constructor>
+      <idArg column="facilities_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="facilities_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="area_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="facilities_des" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    facilities_id, facilities_name, area_id, facilities_des
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from facilities
+    where facilities_id = #{facilitiesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from facilities
+    where facilities_id = #{facilitiesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gcy.pojo.Facilities">
+    insert into facilities (facilities_id, facilities_name, area_id, 
+      facilities_des)
+    values (#{facilitiesId,jdbcType=INTEGER}, #{facilitiesName,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, 
+      #{facilitiesDes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gcy.pojo.Facilities">
+    insert into facilities
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="facilitiesId != null">
+        facilities_id,
+      </if>
+      <if test="facilitiesName != null">
+        facilities_name,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="facilitiesDes != null">
+        facilities_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="facilitiesId != null">
+        #{facilitiesId,jdbcType=INTEGER},
+      </if>
+      <if test="facilitiesName != null">
+        #{facilitiesName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="facilitiesDes != null">
+        #{facilitiesDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gcy.pojo.Facilities">
+    update facilities
+    <set>
+      <if test="facilitiesName != null">
+        facilities_name = #{facilitiesName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="facilitiesDes != null">
+        facilities_des = #{facilitiesDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where facilities_id = #{facilitiesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gcy.pojo.Facilities">
+    update facilities
+    set facilities_name = #{facilitiesName,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      facilities_des = #{facilitiesDes,jdbcType=VARCHAR}
+    where facilities_id = #{facilitiesId,jdbcType=INTEGER}
+  </update>
+</mapper>
